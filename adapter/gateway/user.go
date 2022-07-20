@@ -36,6 +36,24 @@ func (u *UserRepository) GetUserByID(ctx context.Context, userID string) (*entit
 	return &user, nil
 }
 
+func (u *UserRepository) GetUser(ctx context.Context)(*[]entity.User, error) {
+	users := []entity.User{}
+	conn := u.GetDBConn()
+	rows, err := conn.Query("SELECT * FROM `user`")
+	if err != nil {
+		return nil, fmt.Errorf("User Empty")
+	}
+	for rows.Next() {
+		user := entity.User{}
+		err = rows.Scan(&user.ID, &user.Name)
+		if err != nil {
+			return nil, fmt.Errorf("Scan failed")
+		}
+		users = append(users, user)
+	}
+	return &users, nil
+}
+
 // GetDBConn はconnectionを取得します．
 func (u *UserRepository) GetDBConn() *sql.DB {
 	return u.conn

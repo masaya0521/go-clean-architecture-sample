@@ -26,3 +26,12 @@ func (u *User) GetUserByID (ctx context.Context, userID string){
 	}
 	u.OutputPort.Render(user)
 }
+
+func (u *User) GetUser(ctx context.Context){
+	user, err := u.UserRepo.GetUser(ctx)
+	if err != nil {
+		u.OutputPort.RenderError(err)
+		return
+	}
+	u.OutputPort.PostRender(user)
+}

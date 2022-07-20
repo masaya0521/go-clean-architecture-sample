@@ -31,3 +31,9 @@ func (u *User) RenderError(err error) {
 	u.w.WriteHeader(http.StatusInternalServerError)
 	fmt.Fprint(u.w, err)
 }
+
+func (u *User) PostRender(users *[]entity.User) {
+	u.w.WriteHeader(http.StatusOK)
+	// httpでentity.User.Nameを出力
+	fmt.Fprint(u.w, users)
+}

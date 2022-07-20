@@ -34,6 +34,7 @@ func Serve(addr string) {
 		Conn:          conn,
 	}
 	http.HandleFunc("/user/", user.GetUserByID)
+	http.HandleFunc("/users/", user.GetUser)
 	err = http.ListenAndServe(addr, nil)
 	if err != nil {
 		log.Fatalf("Listen and serve failed. %+v", err)

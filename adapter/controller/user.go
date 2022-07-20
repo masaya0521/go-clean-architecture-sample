@@ -23,3 +23,11 @@ func (u *User) GetUserByID (w http.ResponseWriter, r *http.Request) {
 	inputPort := u.InputFactory(outputPort, repository)
 	inputPort.GetUserByID(ctx, userID)
 }
+
+func (u *User) GetUser (w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	outputPort := u.OutputFactory(w)
+    repository := u.RepoFactory(u.Conn)
+	inputPort := u.InputFactory(outputPort, repository)
+	inputPort.GetUser(ctx)
+}
